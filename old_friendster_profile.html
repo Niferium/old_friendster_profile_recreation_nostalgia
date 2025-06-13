@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Friendster - Welcome!</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background-image: url("old_friendster_background.jpg");
+            background-color: black;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            font-size: 11px;
+        }
+
+        /* Header */
+        .header {
+            background: black;
+            color: white;
+            padding: 8px 0;
+            border-bottom: 2px solid #2c5aa0;
+        }
+
+        .header-content {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 10px;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #A9A9A9;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            font-size: 11px;
+        }
+
+        .user-info a {
+            color: white;
+            text-decoration: none;
+        }
+
+        .user-info a:hover {
+            text-decoration: underline;
+        }
+
+        /* Navigation */
+        .nav {
+            background-color: #00000000;
+            border-bottom: 1px solid #c0c0c0;
+            padding: 5px 0;
+        }
+
+        .nav-content {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 10px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 20px;
+            font-size: 11px;
+        }
+
+        .nav-links a {
+            color: #A9A9A9;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .nav-links a:hover {
+            text-decoration: underline;
+        }
+
+        .nav-links a.active {
+            color: #cc6600;
+        }
+
+        /* Main Container */
+        .container {
+            background-color: #00000000;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 10px;
+            display: flex;
+            gap: 10px;
+        }
+
+        /* Left Sidebar */
+        .sidebar-left {
+            width: 200px;
+            flex-shrink: 0;
+        }
+
+        .profile-box {
+            background-color: #00000000;
+            border: 1px solid #A9A9A9;
+            margin-bottom: 10px;
+            padding: 10px;
+        }
+
+        .profile-pic {
+            width: 100px;
+            height: 100px;
+            background-image: url("white_wolf.png");
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-color: #ddd;
+            border: 2px solid #666;
+            margin: 0 auto 10px auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #666;
+            font-size: 10px;
+        }
+
+        .profile-name {
+            text-align: center;
+            font-weight: bold;
+            color: #0066cc;
+            margin-bottom: 5px;
+        }
+
+        .profile-stats {
+            font-size: 10px;
+            text-align: center;
+            color: #666;
+        }
+
+        .sidebar-box {
+            background-color: #00000000;
+            border: 1px solid #c0c0c0;
+            margin-bottom: 10px;
+            padding: 8px;
+        }
+
+        .sidebar-box h3 {
+            background-color: #D3D3D3;
+            color: black;
+            margin: -8px -8px 8px -8px;
+            padding: 4px 8px;
+            font-size: 11px;
+        }
+
+        .sidebar-box ul {
+            list-style: none;
+            font-size: 10px;
+        }
+
+        .sidebar-box li {
+            margin-bottom: 3px;
+        }
+
+        .sidebar-box a {
+            color: #0066cc;
+            text-decoration: none;
+        }
+
+        .sidebar-box a:hover {
+            text-decoration: underline;
+        }
+
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            background-color: #00000000;
+        }
+
+        .content-box {
+            background-color: #00000000;
+            border: 1px solid black;
+            margin-bottom: 10px;
+            padding: 10px;
+        }
+
+        .content-box h2 {
+            background-color: #808080;
+            color: #D3D3D3;
+            margin: -10px -10px 10px -10px;
+            padding: 6px 10px;
+            font-size: 12px;
+        }
+
+        .testimonials {
+            border-collapse: collapse;
+            width: 100%;
+            font-size: 11px;
+        }
+
+        .testimonials td {
+            border: 1px solid #e0e0e0;
+            padding: 8px;
+            vertical-align: top;
+        }
+
+        .testimonial-author {
+            font-weight: bold;
+            color: #0066cc;
+            margin-bottom: 3px;
+        }
+
+        .testimonial-date {
+            font-size: 9px;
+            color: #666;
+            float: right;
+        }
+
+        .photo-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 5px;
+        }
+
+        .photo-item {
+            aspect-ratio: 1;
+            background-color: #f0f0f0;
+            border: 1px solid #ccc;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 9px;
+            color: #666;
+        }
+
+        /* Right Sidebar */
+        .sidebar-right {
+            width: 200px;
+            flex-shrink: 0;
+        }
+
+        .friends-list {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 5px;
+        }
+
+        .friend-item {
+            text-align: center;
+            padding: 5px;
+            border: 1px solid #e0e0e0;
+            background-color: #fafafa;
+        }
+
+        .friend-pic {
+            width: 40px;
+            height: 40px;
+            background-color: #ddd;
+            margin: 0 auto 3px auto;
+            border: 1px solid #999;
+        }
+
+        .friend-name {
+            font-size: 9px;
+            color: #0066cc;
+        }
+
+        /* Footer */
+        .footer {
+            background-color: #f0f0f0;
+            border-top: 1px solid #c0c0c0;
+            padding: 10px 0;
+            margin-top: 20px;
+            text-align: center;
+            font-size: 10px;
+            color: #666;
+        }
+
+        .footer-content {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 10px;
+        }
+
+        .footer-links {
+            margin-bottom: 5px;
+        }
+
+        .footer-links a {
+            color: #0066cc;
+            text-decoration: none;
+            margin: 0 10px;
+        }
+
+        .footer-links a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <div class="header">
+        <div class="header-content">
+            <div class="logo">friendster</div>
+            <div class="user-info">
+                <span>Welcome, <strong>Niforos</strong>!</span>
+                <a href="#">Messages (3)</a>
+                <a href="#">Settings</a>
+                <a href="#">Logout</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <div class="nav">
+        <div class="nav-content">
+            <div class="nav-links">
+                <a href="#" class="active">Home</a>
+                <a href="#">Profile</a>
+                <a href="#">Friends</a>
+                <a href="#">Messages</a>
+                <a href="#">Photos</a>
+                <a href="#">Groups</a>
+                <a href="#">Search</a>
+                <a href="#">Invite</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Container -->
+    <div class="container">
+        <!-- Left Sidebar -->
+        <div class="sidebar-left">
+            <div class="profile-box">
+                <div class="profile-pic"></div>
+                <div class="profile-name">Niforos</div>
+                <div class="profile-stats">
+                    Mh3 s0 H5nGry <br>
+                    B5rg3r5 1ll D@y!!!<br>
+                    Manila
+                </div>
+            </div>
+
+            <div class="sidebar-box">
+                <h3>My Friends</h3>
+                <ul>
+                    <li><a href="#">View All Friends (47)</a></li>
+                    <li><a href="#">Find Friends</a></li>
+                    <li><a href="#">Friend Requests (2)</a></li>
+                    <li><a href="#">Invite Friends</a></li>
+                </ul>
+            </div>
+
+            <div class="sidebar-box">
+                <h3>My Photos</h3>
+                <ul>
+                    <li><a href="#">View All Photos (12)</a></li>
+                    <li><a href="#">Add Photos</a></li>
+                    <li><a href="#">Photo Albums</a></li>
+                </ul>
+            </div>
+
+            <div class="sidebar-box">
+                <h3>My Groups</h3>
+                <ul>
+                    <li><a href="#">My Groups (3)</a></li>
+                    <li><a href="#">Find Groups</a></li>
+                    <li><a href="#">Create Group</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <div class="content-box">
+                <h2>Latest Testimonials</h2>
+                <table class="testimonials">
+                    <tr>
+                        <td>
+                            <div class="testimonial-author">Sarah Wilson</div>
+                            <div class="testimonial-date">3 days ago</div>
+                            John is such an awesome friend! We had so much fun at the beach last weekend. Can't wait to hang out again soon! 🏖️
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="testimonial-author">Mike Chen</div>
+                            <div class="testimonial-date">1 week ago</div>
+                            Great guy to work with on projects. Always reliable and brings positive energy to the team. Highly recommend!
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="testimonial-author">Lisa Park</div>
+                            <div class="testimonial-date">2 weeks ago</div>
+                            John helped me move last month and didn't complain once! True friend right here. Thanks again! 📦
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="content-box">
+                <h2>Recent Photos</h2>
+                <div class="photo-grid">
+                    <div class="photo-item">Photo 1</div>
+                    <div class="photo-item">Photo 2</div>
+                    <div class="photo-item">Photo 3</div>
+                    <div class="photo-item">Photo 4</div>
+                    <div class="photo-item">Photo 5</div>
+                    <div class="photo-item">Photo 6</div>
+                </div>
+            </div>
+
+            <div class="content-box">
+                <h2>Friend Updates</h2>
+                <div style="font-size: 11px; line-height: 1.4;">
+                    <p><strong>Emily Johnson</strong> updated her profile photo <em>2 hours ago</em></p>
+                    <p><strong>David Kim</strong> joined the group "LA Photography Club" <em>5 hours ago</em></p>
+                    <p><strong>Rachel Green</strong> added 3 new photos to "Summer Vacation" album <em>1 day ago</em></p>
+                    <p><strong>Tom Anderson</strong> wrote a new testimonial for Maria Lopez <em>2 days ago</em></p>
+                    <p><strong>Jessica Brown</strong> is now friends with Alex Martinez <em>3 days ago</em></p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Sidebar -->
+        <div class="sidebar-right">
+            <div class="sidebar-box">
+                <h3>My Top Friends</h3>
+                <div class="friends-list">
+                    <div class="friend-item">
+                        <div class="friend-pic"></div>
+                        <div class="friend-name">Sarah W.</div>
+                    </div>
+                    <div class="friend-item">
+                        <div class="friend-pic"></div>
+                        <div class="friend-name">Mike C.</div>
+                    </div>
+                    <div class="friend-item">
+                        <div class="friend-pic"></div>
+                        <div class="friend-name">Lisa P.</div>
+                    </div>
+                    <div class="friend-item">
+                        <div class="friend-pic"></div>
+                        <div class="friend-name">Emily J.</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="sidebar-box">
+                <h3>Who's Online</h3>
+                <ul>
+                    <li><a href="#">Sarah Wilson</a> <span style="color: green;">●</span></li>
+                    <li><a href="#">Mike Chen</a> <span style="color: green;">●</span></li>
+                    <li><a href="#">David Kim</a> <span style="color: green;">●</span></li>
+                    <li><a href="#">Emily Johnson</a> <span style="color: green;">●</span></li>
+                </ul>
+            </div>
+
+            <div class="sidebar-box">
+                <h3>Birthdays</h3>
+                <ul>
+                    <li><a href="#">Jessica Brown</a> - Today!</li>
+                    <li><a href="#">Alex Martinez</a> - Tomorrow</li>
+                    <li><a href="#">Rachel Green</a> - Jun 15</li>
+                </ul>
+            </div>
+
+            <div class="sidebar-box">
+                <h3>Featured Groups</h3>
+                <ul>
+                    <li><a href="#">LA Photography Club</a></li>
+                    <li><a href="#">Beach Volleyball Squad</a></li>
+                    <li><a href="#">Weekend Hikers</a></li>
+                    <li><a href="#">Coffee Lovers Unite</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+        <div class="footer-content">
+            <div class="footer-links">
+                <a href="#">About</a>
+                <a href="#">Help</a>
+                <a href="#">Terms</a>
+                <a href="#">Privacy</a>
+                <a href="#">Safety</a>
+                <a href="#">Contact</a>
+            </div>
+            <div>© 2025 Niforos. All rights reserved.</div>
+        </div>
+    </div>
+</body>
+</html>
